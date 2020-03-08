@@ -27,8 +27,7 @@ const SearchBar = ({state, setState}) => {
                 navigate(`/${state.category}`)
             })
             .catch(error => {
-                navigate('/')
-                alert(error)
+                navigate('/home')
             })
     }, [state.search])
     return(

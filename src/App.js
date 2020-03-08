@@ -12,19 +12,20 @@ import './App.css';
 
 function App() {
   const [state, setState] = useState({
-    category: "",
-    id: 0,
+    category: "people",
+    id: 1,
     search: false,
-    attributes: []
+    attributes: [],
+    homeId: ""
   })
   return (
     <div className="App">
       <SearchBar state={state} setState={setState}/>
       <div className="mt-5">
         <Router>
-            <Home path="/"/>
-            <Planets attributes={state.attributes} path="/planets"/>
-            <People attributes={state.attributes} path="/people"/>
+            <Home path="/home"/>
+            <Planets state={state} setState={setState} path="/planets"/>
+            <People state={state} setState={setState} path="/people"/>
             <Starships attributes={state.attributes} path="/starships"/>
             <Vehicles attributes={state.attributes} path="/vehicles"/>
             <Films attributes={state.attributes} path="/films"/>

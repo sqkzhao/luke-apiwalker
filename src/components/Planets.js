@@ -1,13 +1,22 @@
 import React from 'react'
 
-const Planets = ({attributes}) => {
+const Planets = ({state, setState}) => {
+    // if(state.category !== "planets"){
+    //     setState({
+    //         ...state,
+    //         category: "planets",
+    //         id: state.homeId,
+    //         search: !state.search,
+    //         homeId: ""
+    //     })
+    // }
     return(
         <div>
-            <h1>{attributes.name}</h1>
-            <p><strong>Climate: </strong>{attributes.climate}</p>
-            <p><strong>Terrain: </strong>{attributes.terrain}</p>
-            <p><strong>Surface Water: </strong>{attributes.surface_water}</p>
-            <p><strong>Population: </strong>{attributes.population}</p>
+            <h1>{state.attributes.name}</h1>
+            <p><strong>Climate: </strong>{state.attributes.climate}</p>
+            <p><strong>Terrain: </strong>{state.attributes.terrain}</p>
+            <p><strong>Surface Water: </strong>{state.attributes.surface_water}</p>
+            <p><strong>Population: </strong>{state.attributes.population}</p>
         </div>
     )
 }
