@@ -1,15 +1,6 @@
 import React from 'react'
 
 const Planets = ({state, setState}) => {
-    // if(state.category !== "planets"){
-    //     setState({
-    //         ...state,
-    //         category: "planets",
-    //         id: state.homeId,
-    //         search: !state.search,
-    //         homeId: ""
-    //     })
-    // }
     return(
         <div>
             <h1>{state.attributes.name}</h1>

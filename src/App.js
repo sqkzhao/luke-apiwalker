@@ -1,5 +1,7 @@
-import React, {useState} from 'react';
+import React, { useState, useEffect } from 'react';
 import { Router } from '@reach/router'
+import { navigate } from '@reach/router'
+import axios from 'axios'
 import SearchBar from './components/SearchBar'
 import Planets from './components/Planets'
 import People from './components/People'
@@ -16,16 +18,50 @@ function App() {
     id: 1,
     search: false,
     attributes: [],
-    homeId: ""
   })
+  const onChangeHandler = (e) => {
+    setState({
+        ...state,
+        [e.target.name]: e.target.value
+    })
+  }
+  const onSubmitHandler = (e) => {
+    e.preventDefault()
+    setState({
+        ...state,
+        search: !state.search,
+    })
+  }
+  const onClickHandler = (e) => {
+    setState({
+      ...state,
+      category: "planets",
+      search: !state.search
+    })
+  }
+  useEffect(() => {
+      axios.get(`https://swapi.co/api/${state.category}/${state.id}/`)
+          .then(response => {
+              console.log(response.data)
+              setState({
+                  ...state,
+                  attributes: response.data
+              })
+              navigate(`/${state.category}`)
+          })
+          .catch(error => {
+              navigate('/home')
+          })
+  }, [state.search])
+
   return (
     <div className="App">
-      <SearchBar state={state} setState={setState}/>
+      <SearchBar onChangeHandler={onChangeHandler} onSubmitHandler={onSubmitHandler}/>
       <div className="mt-5">
         <Router>
-            <Home path="/home"/>
+            <Home state={state} path="/home"/>
             <Planets state={state} setState={setState} path="/planets"/>
-            <People state={state} setState={setState} path="/people"/>
+            <People state={state} setState={setState} onClickHandler={onClickHandler} path="/people"/>
             <Starships attributes={state.attributes} path="/starships"/>
             <Vehicles attributes={state.attributes} path="/vehicles"/>
             <Films attributes={state.attributes} path="/films"/>

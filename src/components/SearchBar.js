@@ -1,35 +1,7 @@
 import React, { useState, useEffect } from 'react'
-import { navigate } from '@reach/router'
-import axios from 'axios'
 
-const SearchBar = ({state, setState}) => {
-    const onChangeHandler = (e) => {
-        setState({
-            ...state,
-            [e.target.name]: e.target.value
-        })
-    }
-    const onSubmitHandler = (e) => {
-        e.preventDefault()
-        setState({
-            ...state,
-            search: !state.search,
-        })
-    }
-    useEffect(() => {
-        axios.get(`https://swapi.co/api/${state.category}/${state.id}/`)
-            .then(response => {
-                console.log(response.data)
-                setState({
-                    ...state,
-                    attributes: response.data
-                })
-                navigate(`/${state.category}`)
-            })
-            .catch(error => {
-                navigate('/home')
-            })
-    }, [state.search])
+
+const SearchBar = ({onChangeHandler, onSubmitHandler}) => {
     return(
         <div>
             <form onSubmit={onSubmitHandler} className="form-row justify-content-center mt-5">
